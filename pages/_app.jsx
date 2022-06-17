@@ -12,7 +12,7 @@ const MyApp = ({ Component, pageProps }) => {
               Home
             </a>
           </Link>
-          <Link href="/create-nft">
+          <Link href="/create-items">
             <a className='mr-6 text-pink-500 font-medium' >
               Create NFT
             </a>
