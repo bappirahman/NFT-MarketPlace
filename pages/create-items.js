@@ -7,7 +7,7 @@ import { nftAddress, nftMarketAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
-const client = ipfsHttpClient('https://storageapi.fleek.co/54fddfbe-3408-4db0-9f6e-9171c5e1791b-bucket/');
+const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
