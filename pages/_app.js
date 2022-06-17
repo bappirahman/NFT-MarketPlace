@@ -6,7 +6,7 @@ const MyApp = ({ Component, pageProps }) => {
     <div>
       <nav className='border-b p-6'>
         <h1 className='text-4xl font-bold'>NFT MarketPlace</h1>
-        <div className='flex mt-4' >
+        <nav className='flex mt-4' >
           <Link href="/">
             <a className='mr-6 text-pink-500 font-medium' >
               Home
@@ -27,7 +27,7 @@ const MyApp = ({ Component, pageProps }) => {
               Creator Dashboard
             </a>
           </Link>
-        </div>
+        </nav>
       </nav>
       <Component {...pageProps} />
     </div>
