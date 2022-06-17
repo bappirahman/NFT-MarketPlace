@@ -13,4 +13,20 @@ export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, setFormInput] = useState({name: '', discription: '', price: ''});
   const router = useRouter();
+
+  const onChange = (e) => {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(
+        file,
+        {
+          progress: prog => console.log(`Received: ${prog}`)
+        }
+      );
+      const url = `http://ipfs.infura.io/ipfs/${added.path}`;
+      setFileUrl(url);
+    } catch(e) {
+      console.log(e);
+    }
+  }
 }
