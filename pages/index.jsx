@@ -5,7 +5,6 @@ import Web3Modal from "web3modal";
 import { nftAddress, nftMarketAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
-import NftCard from "./components/nft-card";
 
 export default function Home() {
   const [nfts, setnfts] = useState([]);
@@ -61,7 +60,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-4" >
           {
             nfts.map((nft, index) => (
-              <div className="border shadow rounded-xl overflow-hidden" >
+              <div key={index} className="border shadow rounded-xl overflow-hidden" >
                 <img src={nft.image} />
                 <div className="p-4" >
                   <p className="h-16 text-2xl font-semibold" >{nft.name}</p>

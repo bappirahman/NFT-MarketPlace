@@ -17,7 +17,7 @@ export default function MyAssets() {
     const connection = web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
+    const tokenContract = new ethers.Contract(nftAddress, NFT.abi, signer);
     const marketContract = new ethers.Contract(nftMarketAddress, Market.abi, provider);
     const data = await marketContract.fetchMyNFTs();
     //mapping
@@ -48,7 +48,7 @@ export default function MyAssets() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-4" >
         {
             nfts.map((nft, index) => (
-              <div className="border shadow rounded-xl overflow-hidden" >
+              <div key={index} className="border shadow rounded-xl overflow-hidden" >
                 <img src={nft.image} />
                 <div className="p-4" >
                   <p className="h-16 text-2xl font-semibold" >{nft.name}</p>
