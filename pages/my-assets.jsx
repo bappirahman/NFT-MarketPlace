@@ -6,7 +6,7 @@ import { nftMarketAddress, nftAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
-export default MyAssets() {
+export default function MyAssets() {
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState('not-loaded');
   useEffect(() => {
