@@ -5,6 +5,7 @@ import Web3Modal from "web3modal";
 import { nftAddress, nftMarketAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
+import {projectId} from '../secret.json';
 
 export default function Home() {
   const [nfts, setnfts] = useState([]);
@@ -14,7 +15,7 @@ export default function Home() {
   }, []);
 
   const loadNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${projectId}`);
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftMarketAddress, Market.abi, provider);
     const data = await marketContract.fetchMarketItems();

@@ -6,7 +6,7 @@ const MyApp = ({ Component, pageProps }) => {
     <div>
       <nav className='border-b py-6 navbar'>
         <Link href="/">
-          <h1 className='text-4xl font-bold cursor-pointer inline'>NFT MarketPlace</h1>
+          <h1 className='text-4xl font-bold cursor-pointer inline mr-1'>NFT MarketPlace</h1>
         </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

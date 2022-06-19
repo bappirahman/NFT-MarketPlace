@@ -6,6 +6,7 @@ import Web3Modal from 'web3modal';
 import { nftAddress, nftMarketAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
+import {projectId} from '../secret.json';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -44,7 +45,7 @@ export default function CreateItem() {
     }
   } 
   const createSale = async (url) => {
-    const web3Modal = new Web3Modal();
+    const web3Modal = new Web3Modal(`https://rinkeby.infura.io/v3/${projectId}`);
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
