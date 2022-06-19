@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { ethers } from 'ethers';
 import {create as ipfsHttpClient} from 'ipfs-http-client';
 import { useRouter } from 'next/router';
-import Web3Modal from 'web3modal';
+import Web3Modal from 'web3Modal';
 import { nftAddress, nftMarketAddress } from "../config";
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
@@ -36,27 +36,27 @@ export default function CreateItem() {
       name, description, image: fileUrl
     });
     try {
-      const added = client.add(data);
+      const added = await client.add(data);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       createSale(url)
     } catch(err) {
       console.log(err);
     }
-  }
+  } 
   const createSale = async (url) => {
-    const Web3Modal = new Web3Modal();
-    const connection = await Web3Modal.connect();
-    const provider = await ethers.providers.Web3Provider(connection);
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    let contract = new ethers.Contract(nftAddress. NFT.abi, signer);
-    let transaction = contract.createToken(url);
+    let contract = new ethers.Contract(nftAddress, NFT.abi, signer);
+    let transaction = await contract.createToken(url);
     let tx = await transaction.wait();
     let event = tx.events[0];
     let value = event.args[2];
     let tokenId = value.toNumber();
     let price = ethers.utils.parseUnits(formInput.price, 'ether');
     contract = new ethers.Contract(nftMarketAddress, Market.abi, signer);
-    let listingPrice = await contract.listingPrice().toString();
+    let listingPrice = await contract.getListingPrice();
     transaction = await contract.createMarketItem(nftAddress, tokenId, price, {value: listingPrice});
     await transaction.wait();
     router.push('/');

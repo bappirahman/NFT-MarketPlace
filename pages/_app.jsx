@@ -4,30 +4,30 @@ import Link from 'next/link'
 const MyApp = ({ Component, pageProps }) => {
   return (
     <div>
-      <nav className='border-b p-6'>
-        <h1 className='text-4xl font-bold'>NFT MarketPlace</h1>
-        <nav className='flex mt-4' >
-          <Link href="/">
+      <nav className='border-b py-6 navbar'>
+        <Link href="/">
+          <h1 className='text-4xl font-bold cursor-pointer inline'>NFT MarketPlace</h1>
+        </Link>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div className='flex float-right collapse navbar-collapse' >
+          <Link className='navbar-item' href="/">
             <a className='mr-6 text-pink-500 font-medium' >
               Home
             </a>
           </Link>
-          <Link href="/create-items">
+          <Link className='navbar-item' href="/create-items">
             <a className='mr-6 text-pink-500 font-medium' >
               Create NFT
             </a>
           </Link>
-          <Link href="/my-assets">
+          <Link className='navbar-item' href="/my-assets">
             <a className='mr-6 text-pink-500 font-medium' >
               My Digital Assets
             </a>
           </Link>
-          <Link href="/creator-dashboard">
-            <a className='mr-6 text-pink-500 font-medium' >
-              Creator Dashboard
-            </a>
-          </Link>
-        </nav>
+        </div>
       </nav>
       <Component {...pageProps} />
     </div>

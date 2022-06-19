@@ -20,7 +20,7 @@ export default function Home() {
     const data = await marketContract.fetchMarketItems();
     //mapping
     const items = await Promise.all(data.map(async i => {
-      const tokenUri = await tokenContract.tokeURI(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenId);
       const meta = await axios.get(tokenUri);
       const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
       let item = {
@@ -30,7 +30,7 @@ export default function Home() {
         owner: i.owner,
         image: meta.data.image,
         name: meta.data.name,
-        discription: meta.data.discription
+        description: meta.data.description
       }
       return item;
     }));
@@ -40,11 +40,11 @@ export default function Home() {
   }
   const buyNft = async (nft) => {
     const web3Modal = new Web3Modal();
-    const connection = web3Modal.connect();
+    const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(nftMarketAddress, Market.abi, signer);
-    const price = ethers.utils.formatUnits(nft.price.toString(), 'ether');
+    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
     const transaction = await contract.createMarketSale(nftAddress, nft.tokenId, {value: price});
     await transaction.wait();
     loadNFTs();
@@ -61,11 +61,11 @@ export default function Home() {
           {
             nfts.map((nft, index) => (
               <div key={index} className="border shadow rounded-xl overflow-hidden" >
-                <img src={nft.image} />
+                <img className="object-cover" src={nft.image} />
                 <div className="p-4" >
                   <p className="h-16 text-2xl font-semibold" >{nft.name}</p>
                   <div className="h-20 overflow-hidden" >
-                    <p className="text-gray-400" >{nft.discription}</p>
+                    <p className="text-gray-400" >{nft.description}</p>
                   </div>
                   <div className="p-4 bg-black" >
                     <p className="text-2xl mb-4 font-bold text-white" >{nft.price} ETH</p>

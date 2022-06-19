@@ -14,15 +14,15 @@ export default function MyAssets() {
   },[]);
   const loadNFTs = async () => {
     const web3Modal = new Web3Modal();
-    const connection = web3Modal.connect();
+    const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, signer);
-    const marketContract = new ethers.Contract(nftMarketAddress, Market.abi, provider);
+    const marketContract = new ethers.Contract(nftMarketAddress, Market.abi, signer);
     const data = await marketContract.fetchMyNFTs();
     //mapping
     const items = await Promise.all(data.map(async i => {
-      const tokenUri = await tokenContract.tokeURI(i.tokenId);
+      const tokenUri = await tokenContract.tokenURI(i.tokenId);
       const meta = await axios.get(tokenUri);
       const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
       let item = {

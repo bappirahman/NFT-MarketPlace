@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract NFTMarket is ReentrancyGuard {
   using Counters for Counters.Counter;
@@ -13,6 +14,10 @@ contract NFTMarket is ReentrancyGuard {
   uint public listingPrice = 0.00025 ether;
   constructor() {
     owner = payable(msg.sender);
+  }
+  function getListingPrice() public view returns(string memory) {
+    string memory listingPriceString = Strings.toString(listingPrice);
+    return listingPriceString;
   }
   struct MarketItem {
     uint itemId;
@@ -92,23 +97,26 @@ contract NFTMarket is ReentrancyGuard {
     return unsoldItems;
   }
   function fetchMyNFTs() public view returns (MarketItem[] memory) {
-    uint totalItems = _itemIds.current();
-    uint itemCount = 0;
-    uint currentIndex = 0;
-    for(uint i = 1; i <= totalItems; i++) {
-      if(MarketItemId[i].owner == msg.sender) {
-        itemCount++;
+    uint totalItemCount = _itemIds.current();
+      uint itemCount = 0;
+      uint currentIndex = 0;
+
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (MarketItemId[i + 1].owner == msg.sender) {
+          itemCount += 1;
+        }
       }
-    }
-    MarketItem[] memory myItems = new MarketItem[](itemCount);
-    for(uint i = 1; i <= totalItems; i++) {
-      if(MarketItemId[i].owner == msg.sender) {
-        uint currentItemId = MarketItemId[i].itemId;
-        myItems[currentIndex] = MarketItemId[currentItemId];
-        currentIndex++;
+
+      MarketItem[] memory items = new MarketItem[](itemCount);
+      for (uint i = 0; i < totalItemCount; i++) {
+        if (MarketItemId[i + 1].owner == msg.sender) {
+          uint currentId = i + 1;
+          MarketItem storage currentItem = MarketItemId[currentId];
+          items[currentIndex] = currentItem;
+          currentIndex += 1;
+        }
       }
-    }
-    return myItems;
+      return items;
   }
   function fetchItemsCreated() public view returns (MarketItem[] memory) {
     uint totalItems = _itemIds.current();
