@@ -7,8 +7,8 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-    rinkeby: {
-      url: `https://rinkeby.infura.io/v3/${projectId}`,
+    goerli: {
+      url: `https://eth-goerli.g.alchemy.com/v2/${projectId}`,
       accounts: [privateKey]
     }
   }

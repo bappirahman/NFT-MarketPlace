@@ -11,11 +11,12 @@ export default function Home() {
   const [nfts, setnfts] = useState([]);
   const [loadingState, setLoadingState] = useState('not-loaded');
   useEffect(() => {
+    console.log(projectId);
     loadNFTs();
   }, []);
 
   const loadNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${projectId}`);
+    const provider = new ethers.providers.JsonRpcProvider(`https://eth-goerli.g.alchemy.com/v2/${projectId}`);
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftMarketAddress, Market.abi, provider);
     const data = await marketContract.fetchMarketItems();

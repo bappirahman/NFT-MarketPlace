@@ -4,7 +4,7 @@ import Link from 'next/link'
 const MyApp = ({ Component, pageProps }) => {
   return (
     <div>
-      <p className='bg-black text-white text-center' >Note: Please Use Rinkeby Testnet </p>
+      <p className='bg-black text-white text-center' >Note: Please Use Goerli Testnet </p>
       <nav className='border-b py-6 navbar'>
         <Link href="/">
           <h1 className='text-4xl font-bold cursor-pointer inline ml-5'>NFT MarketPlace</h1>

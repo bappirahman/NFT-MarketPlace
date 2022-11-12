@@ -14,7 +14,7 @@ export default function MyAssets() {
     loadNFTs();
   },[]);
   const loadNFTs = async () => {
-    const web3Modal = new Web3Modal(`https://rinkeby.infura.io/v3/${projectId}`);
+    const web3Modal = new Web3Modal(`https://eth-goerli.g.alchemy.com/v2/${projectId}`);
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
