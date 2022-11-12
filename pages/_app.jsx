@@ -12,7 +12,7 @@ const MyApp = ({ Component, pageProps }) => {
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-        <div className='flex float-right collapse navbar-collapse' >
+        <div className='flex float-right navbar-collapse' >
           <Link className='navbar-item' href="/">
             <a className='mr-6 text-pink-500 font-medium' >
               Home
